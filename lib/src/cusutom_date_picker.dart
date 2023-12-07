@@ -1,4 +1,4 @@
-import 'package:flutter/Cupertino.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
 
 double _itemExtent = 60.0;
