@@ -1,12 +1,12 @@
 name: cupertino_date_picker_w_controller
 description: "just a cupertino style date picker with a controller with it"
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/TroyTheGod
 repository: https://github.com/TroyTheGod/cupertino_date_picker_w_controller.git
 
 environment:
-  sdk: '>=3.2.2 <4.0.0'
-  flutter: '>=1.17.0'
+  sdk: ">=3.2.2 <4.0.0"
+  flutter: ">=1.17.0"
 
 dependencies:
   flutter:

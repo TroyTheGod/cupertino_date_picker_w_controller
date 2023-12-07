@@ -15,4 +15,10 @@ just a cupertino style date picker with a controller with it
 
 ## Features
 
-animated to date, notify date picker animated end
+# Controller
+
+allow change date with animation
+
+# Customization
+
+allow customization on date picker

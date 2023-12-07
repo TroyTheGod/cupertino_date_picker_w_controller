@@ -1,18 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
 
+TextStyle _textStyle = const TextStyle();
+bool _useMagnifier = true;
 double _itemExtent = 60.0;
 double _offAxisFraction = 0.3;
-TextStyle _textStyle = const TextStyle();
 double _squeeze = 1.25;
-const _useMagnifier = true;
-const _magnification = 2.35 / 2.1;
+double _magnification = 2.35 / 2.1;
+SelectOverlayDecoration? _overlayDecoration;
 
-String Function(int day) _getDatePickerDay = (int day) => '$day日';
+String Function(int day) _getDatePickerDay = (int day) => '$day';
 
-String Function(int month) _getDatePickerMonth = (int month) => '$month月';
+String Function(int month) _getDatePickerMonth = (int month) => '$month';
 
-String Function(int year) _getDatePickerYear = (int year) => '$year年';
+String Function(int year) _getDatePickerYear = (int year) => '$year';
+
+class SelectOverlayDecoration {
+  final BorderRadiusGeometry? borderRadius;
+  final Color? color;
+
+  SelectOverlayDecoration({
+    this.borderRadius,
+    this.color,
+  });
+}
 
 class CustomDatePickerController extends ChangeNotifier {
   final DateTime initialDateTime;
@@ -102,10 +113,13 @@ class CustomDatePickerController extends ChangeNotifier {
 class CustomDatePicker extends StatefulWidget {
   final CustomDatePickerController controller;
   final Function(DateTime newDate) onDateTimeChange;
+  final bool? useMagnifier;
   final double? itemExtent;
   final double? offAxisFraction;
   final double? squeeze;
+  final double? magnification;
   final TextStyle? itemTextStyle;
+  final SelectOverlayDecoration? selectOverlayDecoration;
   final String Function(int day)? setDayDisplayText;
   final String Function(int month)? setMonthDisplayText;
   final String Function(int year)? setYearDisplayText;
@@ -121,6 +135,9 @@ class CustomDatePicker extends StatefulWidget {
     this.setDayDisplayText,
     this.setMonthDisplayText,
     this.setYearDisplayText,
+    this.useMagnifier,
+    this.magnification,
+    this.selectOverlayDecoration,
   }) : super(key: key) {
     if (itemExtent != null) {
       _itemExtent = itemExtent!;
@@ -142,6 +159,15 @@ class CustomDatePicker extends StatefulWidget {
     }
     if (setYearDisplayText != null) {
       _getDatePickerYear = setYearDisplayText!;
+    }
+    if (useMagnifier != null) {
+      _useMagnifier = useMagnifier!;
+    }
+    if (magnification != null) {
+      _magnification = magnification!;
+    }
+    if (selectOverlayDecoration != null) {
+      _overlayDecoration = selectOverlayDecoration!;
     }
   }
 
@@ -408,8 +434,9 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
               child: Container(
                 height: _itemExtent * _magnification,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFF6F6F6),
-                  borderRadius: BorderRadius.circular(_itemExtent * 0.167),
+                  color: _overlayDecoration?.color ?? const Color(0xFFF6F6F6),
+                  borderRadius: _overlayDecoration?.borderRadius ??
+                      BorderRadius.circular(_itemExtent * 0.167),
                 ),
               ),
             ),

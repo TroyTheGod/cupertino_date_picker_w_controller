@@ -32,6 +32,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late CustomDatePickerController controller;
+  String date = DateTime.now().toString();
 
   @override
   void initState() {
@@ -60,13 +61,16 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Text(date),
             SizedBox(
               height: 300.0,
               width: MediaQuery.of(context).size.width - 40.0,
               child: CustomDatePicker(
                 controller: controller,
                 onDateTimeChange: (newDate) {
-                  debugPrint(newDate.toString());
+                  setState(() {
+                    date = newDate.toString();
+                  });
                 },
               ),
             ),
