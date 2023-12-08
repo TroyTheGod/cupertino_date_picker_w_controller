@@ -26,8 +26,14 @@ class SelectOverlayDecoration {
 }
 
 class CustomDatePickerController extends ChangeNotifier {
+  /// Changing this value after the initial build will not affect the currently
+  /// selected date time.
   final DateTime initialDateTime;
+
+  /// The minimum selectable date that the picker can settle on.
   final DateTime? minimumDate;
+
+  /// The maximum selectable date that the picker can settle on.
   final DateTime? maximumDate;
 
   // The controller of the day picker. There are cases where the selected value
@@ -111,17 +117,51 @@ class CustomDatePickerController extends ChangeNotifier {
 }
 
 class CustomDatePicker extends StatefulWidget {
+  /// the controller of date picker, which you can set initialDateTime,
+  /// minimumDate, maximumDate, it can also use to animate the date
+  /// picker to a dateTime.
   final CustomDatePickerController controller;
+
+  /// a callback function which will be called when the value of date
+  /// picker changed
   final Function(DateTime newDate) onDateTimeChange;
+
+  ///Whether to use the magnifier for the center item of the wheel.
   final bool? useMagnifier;
+
+  /// {@template flutter.cupertino.picker.itemExtent}
+  /// The uniform height of all children.
+  ///
+  /// All children will be given the [BoxConstraints] to match this exact
+  /// height. Must be a positive value.
+  /// {@endtemplate}
   final double? itemExtent;
+
+  ///How much the wheel is horizontally off-center, as a fraction of its width.
+  ///This property creates the visual effect of looking at a vertical wheel from
+  ///its side where its vanishing points at the edge curves to one side instead
+  ///of looking at the wheel head-on.
   final double? offAxisFraction;
+
+  ///The angular compactness of the children on the wheel.
   final double? squeeze;
+
+  ///The zoomed-in rate of the magnifier, if it is used
   final double? magnification;
+
+  /// the text style of the item inside Cupertino picker
   final TextStyle? itemTextStyle;
+
+  /// the decoration of the select overlay
   final SelectOverlayDecoration? selectOverlayDecoration;
+
+  /// allow customize day text
   final String Function(int day)? setDayDisplayText;
+
+  /// allow customize day month
   final String Function(int month)? setMonthDisplayText;
+
+  /// allow customize day year
   final String Function(int year)? setYearDisplayText;
 
   CustomDatePicker({
